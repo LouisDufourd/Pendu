@@ -18,6 +18,7 @@ namespace Pendu
         private int nombreErreur;
         private int nombreLettreJuste;
         private int avetissement;
+        private int score;
         private Regex regex = new Regex("[a-zA-Z0-9]");
         private Point penPosition;
         private Point newPenPosition;
@@ -37,9 +38,9 @@ namespace Pendu
 
         private void validMotChercher_Click(object sender, EventArgs e)
         {
-            if ( ( this.motChercher.Text.Length <= 10 ) && (this.motChercher.Text.Length >= 3)))
+            if ( ( this.motChercher.Text.Length <= 10 ) && (this.motChercher.Text.Length >= 3))
             {
-                if (regex.IsMatch(motChercher.Text) {
+                if (regex.IsMatch(motChercher.Text)) {
                     motAChercher = this.motChercher.Text;
 
                     this.label2.Visible = true;
@@ -62,13 +63,14 @@ namespace Pendu
                     }
                 } else
                 {
-                    MessageBox.Show("");
+                    MessageBox.Show("Merci de ne pas mettre de caractère spécial");
                 }
             }
         }
 
         private void buttonLettreTester_Click(object sender, EventArgs e)
         {
+            string motsTextBox = "";
             string aVerifier = this.lettreTester.Text;
             bool isOk = false;
             char[] lettres = motAChercher.ToCharArray();
@@ -79,11 +81,11 @@ namespace Pendu
             this.lettreTester.Text = "";
             for(int i = 0; i < lettres.Length; i++)
             {
-                if(lettres[i] == aVerifier.ToCharArray()[0] && motsAfficher[i] != aVerifier.ToCharArray()[0])
+                if(lettres[i].ToString().ToLower() == aVerifier.ToCharArray()[0].ToString().ToLower() && motsAfficher[i] != aVerifier.ToCharArray()[0])
                 {
                     isOk = true;
                     nombreLettreJuste++;
-                    motsAfficher[i] = aVerifier.ToCharArray()[0];
+                    motsAfficher[i] = Char.ToLower(aVerifier.ToCharArray()[0]);
                 } else if (avetissement <= 0 && aVerifier.ToCharArray()[0] == ' ')
                 {
                     avetissement = 1;
@@ -91,15 +93,20 @@ namespace Pendu
                     isOk = true;
                 } else if (motsAfficher[i] == aVerifier.ToCharArray()[0])
                 {
-
+                    isOk = true;
+                    MessageBox.Show("Vous avez déjà trouvez cette lettres");
                 }
             }
+            Graphics g = this.panel1.CreateGraphics();
+            Pen crayon = new Pen(Color.Black, 3);
+            for (int i = 0; i < motsAfficher.Length; i++)
+            {
+                motsTextBox += motsAfficher[i] + " ";
+            }
+            textBoxAffiche.Text = motsTextBox;
             if (!isOk)
             {
-                int pos;
                 nombreErreur++;
-                Graphics g = this.panel1.CreateGraphics();
-                Pen crayon = new Pen(Color.Black, 3);
                 switch (nombreErreur)
                 {
                     case 1:
@@ -144,6 +151,7 @@ namespace Pendu
                     case 9:
                         g.DrawLine(crayon, penPosition, newPenPosition);
                         MessageBox.Show("Vous avez perdu le mots été: " + motAChercher);
+                        //
                         this.label2.Visible = false;
                         this.lettreTester.Text = "";
                         this.lettreTester.Visible = false;
@@ -156,14 +164,22 @@ namespace Pendu
                         this.label3.Visible = false;
                         this.textBoxAffiche.Visible = false;
                         this.textBoxAffiche.Text = "";
+                        //
+                        penPosition = new Point(20, 250);
+                        newPenPosition = new Point(100, 250);
+                        //
+                        nombreLettreJuste = 0;
+                        nombreErreur = 0;
                         g.Clear(Color.White);
+                        score--;
+                        actualScore.Text = "Score: " + score;
                         break;
                 }
                 
             }
             else if (nombreLettreJuste == lettres.Length)
             {
-                MessageBox.Show("Vous avez gagnez le mots été: " + motAChercher);
+                MessageBox.Show("Vous avez gagnez le mots été: " + motAChercher.ToLower());
                 this.label2.Visible = false;
                 this.lettreTester.Text = "";
                 this.lettreTester.Visible = false;
@@ -176,9 +192,18 @@ namespace Pendu
                 this.label3.Visible = false;
                 this.textBoxAffiche.Visible = false;
                 this.textBoxAffiche.Text = "";
-
+                //
+                score++;
+                actualScore.Text = "Score: " + score;
+                //
+                penPosition = new Point(20, 250);
+                newPenPosition = new Point(100, 250);
+                //
+                nombreLettreJuste = 0;
+                nombreErreur = 0;
+                //
+                g.Clear(Color.White);
             }
-            //g.DrawLine(crayon, 0, 0, 50, 60);
         }
     }
 }

@@ -37,6 +37,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBoxAffiche = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.actualScore = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -132,11 +133,21 @@
             this.label3.Text = "Mots à trouver:";
             this.label3.Visible = false;
             // 
+            // actualScore
+            // 
+            this.actualScore.AutoSize = true;
+            this.actualScore.Location = new System.Drawing.Point(261, 9);
+            this.actualScore.Name = "actualScore";
+            this.actualScore.Size = new System.Drawing.Size(47, 13);
+            this.actualScore.TabIndex = 9;
+            this.actualScore.Text = "Score: 0";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(600, 366);
+            this.Controls.Add(this.actualScore);
             this.Controls.Add(this.textBoxAffiche);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.panel1);
@@ -166,6 +177,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TextBox textBoxAffiche;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label actualScore;
     }
 }
 
