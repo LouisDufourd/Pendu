@@ -57,6 +57,7 @@
             this.motChercher.Name = "motChercher";
             this.motChercher.Size = new System.Drawing.Size(76, 20);
             this.motChercher.TabIndex = 1;
+            this.motChercher.KeyDown += new System.Windows.Forms.KeyEventHandler(this.motChercher_KeyDown);
             // 
             // validMotChercher
             // 
@@ -90,6 +91,7 @@
             this.lettreTester.Size = new System.Drawing.Size(76, 20);
             this.lettreTester.TabIndex = 4;
             this.lettreTester.Visible = false;
+            this.lettreTester.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lettreTester_KeyDown);
             // 
             // label2
             // 
@@ -160,7 +162,6 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
